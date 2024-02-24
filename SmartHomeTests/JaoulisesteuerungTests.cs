@@ -17,16 +17,54 @@ namespace SmartHome.Tests
             var wettersensor = new WettersensorMock(25, 35, true);
             var wohnung = new Wohnung(wettersensor);
 
-            wohnung.SetTemperaturvorgabe("Küche", 20);
-            wohnung.SetPersonenImZimmer("Küche", false);
+            wohnung.SetTemperaturvorgabe("Kueche", 20);
+            wohnung.SetPersonenImZimmer("Kueche", false);
 
             wohnung.GenerateWetterdaten();
 
             // Act
-            var kueche = wohnung.GetZimmer<Jalousiensteuerung>("Küche");
+            var kueche = wohnung.GetZimmer<Jalousiensteuerung>("Kueche");
 
             // Assert
-            Assert.AreEqual(kueche.JalousieOffen, true);
+            Assert.IsFalse(kueche.JalousieOffen);
         }
+
+        [TestMethod]
+        public void TestNiederigereAussenTemperatur_flase()
+        {
+            // Arrange
+            var wettersensor = new WettersensorMock(15, 35, true);
+            var wohnung = new Wohnung(wettersensor);
+
+            wohnung.SetTemperaturvorgabe("Kueche", 20);
+            wohnung.SetPersonenImZimmer("Kueche", false);
+
+            wohnung.GenerateWetterdaten();
+
+            // Act
+            var kueche = wohnung.GetZimmer<Jalousiensteuerung>("Kueche");
+
+            // Assert
+            Assert.IsTrue(kueche.JalousieOffen);
+        }
+
+        //[TestMethod]
+        //public void TestHoehereTempPersonImRaum_true()
+        //{
+        //    // Arrange
+        //    var wettersensor = new WettersensorMock(25, 35, true);
+        //    var wohnung = new Wohnung(wettersensor);
+
+        //    wohnung.SetTemperaturvorgabe("Kueche", 20);
+        //    wohnung.SetPersonenImZimmer("Kueche", true);
+
+        //    wohnung.GenerateWetterdaten();
+
+        //    // Act
+        //    var kueche = wohnung.GetZimmer<Jalousiensteuerung>("Kueche");
+
+        //    // Assert
+        //    Assert.AreEqual(kueche.JalousieOffen, true);
+        //}
     }
 }

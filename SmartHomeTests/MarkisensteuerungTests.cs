@@ -10,11 +10,20 @@ namespace SmartHome.Tests
     [TestClass]
     public class MarkisensteuerungTests
     {
+        // BEMERKUNG:
+        /*
+        In OneNote lautet die Regel für die Markisensteuerung so: 
+        ○ Die Markise wird ausgefahren, wenn die Aussentemperatur die vorgegebenen Zimmertemperatur überschreitet. 
+        Dies jedoch nur, wenn die Windgeschwindigkeit nicht höher als 30km/h beträgt.
+
+        In diesem Projekt (vom zip-File heruntergeladen) wurde anstelle von der Windgeschwindigkeit den Regen genommen (siehe Logik Markisensteuerung.cs)
+        */
+
         [TestMethod]
-        public void TestMit25Grad_False()
+        public void TestMit25GradRegenNein_False()
         {
             // Arrange
-            var wettersensor = new WettersensorMock(25, 29, false);
+            var wettersensor = new WettersensorMock(25, 20, false);
             var wohnung = new Wohnung(wettersensor);
 
             wohnung.SetTemperaturvorgabe("Wintergarten", 20);
@@ -29,23 +38,41 @@ namespace SmartHome.Tests
             Assert.IsFalse(wintergarten.MarkiseEingefahren);
         }
 
-        //[TestMethod]
-        //public void TestMarkisenEinfahrenBeiHoherAussentemperaturUndWind()
-        //{
-        //    // Arrange
-        //    var wettersensor = new WettersensorMock(35, 31, false); 
-        //    var wohnung = new Wohnung(wettersensor);
+        [TestMethod]
+        public void TestMit25GradRegenJa_True()
+        {
+            // Arrange
+            var wettersensor = new WettersensorMock(25, 35, true);
+            var wohnung = new Wohnung(wettersensor);
 
-        //    wohnung.SetTemperaturvorgabe("Wintergarten", 20); 
-        //    wohnung.SetPersonenImZimmer("Wintergarten", false);
+            wohnung.SetTemperaturvorgabe("Wintergarten", 20);
+            wohnung.SetPersonenImZimmer("Wintergarten", false);
 
-        //    // Act
-        //    wohnung.GenerateWetterdaten();
-        //    var wintergarten = wohnung.GetZimmer<Markisensteuerung>("Wintergarten");
+            // Act
+            wohnung.GenerateWetterdaten();
+            var wintergarten = wohnung.GetZimmer<Markisensteuerung>("Wintergarten");
 
-        //    // Assert
-        //    Assert.IsTrue(wintergarten.MarkiseEingefahren);
-        //}
+            // Assert
+            Assert.IsTrue(wintergarten.MarkiseEingefahren);
+        }
+
+        [TestMethod]
+        public void TestMit15GradRegenNein_True()
+        {
+            // Arrange
+            var wettersensor = new WettersensorMock(15, 35, true);
+            var wohnung = new Wohnung(wettersensor);
+
+            wohnung.SetTemperaturvorgabe("Wintergarten", 20);
+            wohnung.SetPersonenImZimmer("Wintergarten", false);
+
+            // Act
+            wohnung.GenerateWetterdaten();
+            var wintergarten = wohnung.GetZimmer<Markisensteuerung>("Wintergarten");
+
+            // Assert
+            Assert.Ist(wintergarten.MarkiseEingefahren);
+        }
 
     }
 }
