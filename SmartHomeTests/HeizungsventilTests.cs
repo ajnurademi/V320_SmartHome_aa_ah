@@ -61,7 +61,7 @@ namespace SmartHome.Tests
         public void TestMitMinus50Grad_True()
         {
             // Arrange
-            var wettersensor = new WettersensorMock(-25, 19.8, true);
+            var wettersensor = new WettersensorMock(-50, 19.8, true);
             var wohnung = new Wohnung(wettersensor);
 
             wohnung.SetTemperaturvorgabe("Wohnen", 19);

@@ -71,7 +71,43 @@ namespace SmartHome.Tests
             var wintergarten = wohnung.GetZimmer<Markisensteuerung>("Wintergarten");
 
             // Assert
-            Assert.Ist(wintergarten.MarkiseEingefahren);
+            Assert.IsTrue(wintergarten.MarkiseEingefahren);
+        }
+
+        [TestMethod]
+        public void TestMitMinus15GradRegenNein_True()
+        {
+            // Arrange
+            var wettersensor = new WettersensorMock(-15, 35, true);
+            var wohnung = new Wohnung(wettersensor);
+
+            wohnung.SetTemperaturvorgabe("Wintergarten", 20);
+            wohnung.SetPersonenImZimmer("Wintergarten", false);
+
+            // Act
+            wohnung.GenerateWetterdaten();
+            var wintergarten = wohnung.GetZimmer<Markisensteuerung>("Wintergarten");
+
+            // Assert
+            Assert.IsTrue(wintergarten.MarkiseEingefahren);
+        }
+
+        [TestMethod]
+        public void TestMit20GradRegenNein_True()
+        {
+            // Arrange
+            var wettersensor = new WettersensorMock(20, 35, true);
+            var wohnung = new Wohnung(wettersensor);
+
+            wohnung.SetTemperaturvorgabe("Wintergarten", 20);
+            wohnung.SetPersonenImZimmer("Wintergarten", false);
+
+            // Act
+            wohnung.GenerateWetterdaten();
+            var wintergarten = wohnung.GetZimmer<Markisensteuerung>("Wintergarten");
+
+            // Assert
+            Assert.IsTrue(wintergarten.MarkiseEingefahren);
         }
 
     }
