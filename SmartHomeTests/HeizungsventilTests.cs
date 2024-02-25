@@ -7,7 +7,7 @@ namespace SmartHome.Tests
     public class HeizungsventilTests
     {
         // TODO
-        //Arrange
+        // Arrange
         // KLasse WettersensorMock erstellen (Neue klasse im TestProjekt
         // , welche die fixe Aussentemparatur 19C§ als Wetterdaten "generiert"
         // 2) Wohnung instanzieren und WezzersensorMock als Wettersensor im
@@ -21,7 +21,6 @@ namespace SmartHome.Tests
         // 5) Wohnzimmer überprüfen, ob Heizungsventil offen 
 
         [TestMethod]
-
         public void TestMit18Grad_True()
         {
             // Arrange
@@ -40,7 +39,7 @@ namespace SmartHome.Tests
         }
 
         [TestMethod]
-        public void TestMit19Grad_False()
+        public void TestMitGleicherTemp_False()
         {
             // Arrange
             var wettersensor = new WettersensorMock(19, 19.8, true);
@@ -73,11 +72,11 @@ namespace SmartHome.Tests
             var wohnzimmer = wohnung.GetZimmer<Heizungsventil>("Wohnen");
 
             // Assert
-            Assert.AreEqual(wohnzimmer.HeizungsventilOffen, true);
+            Assert.IsTrue(wohnzimmer.HeizungsventilOffen);
         }
 
         [TestMethod]
-        public void TestMit20grad_False()
+        public void TestMit20Grad_False()
         {
             // Arrange
             var wettersensor = new WettersensorMock(20, 19.8, true);
@@ -96,7 +95,7 @@ namespace SmartHome.Tests
         }
 
         [TestMethod]
-        public void TestMit35grad_false()
+        public void TestMit35Grad_false()
         {
             // Arrange
             var wettersensor = new WettersensorMock(35, 19.8, true);

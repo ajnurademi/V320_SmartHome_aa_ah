@@ -16,7 +16,7 @@ namespace SmartHome.Tests
         ○ Die Markise wird ausgefahren, wenn die Aussentemperatur die vorgegebenen Zimmertemperatur überschreitet. 
         Dies jedoch nur, wenn die Windgeschwindigkeit nicht höher als 30km/h beträgt.
 
-        In diesem Projekt (vom zip-File heruntergeladen) wurde anstelle von der Windgeschwindigkeit den Regen genommen (siehe Logik Markisensteuerung.cs)
+        Im Projekt (vom zip-File heruntergeladen) wurde anstelle von der Windgeschwindigkeit den Regen genommen (siehe Logik Markisensteuerung.cs)
         */
 
         [TestMethod]
@@ -60,7 +60,7 @@ namespace SmartHome.Tests
         public void TestMit15GradRegenNein_True()
         {
             // Arrange
-            var wettersensor = new WettersensorMock(15, 35, true);
+            var wettersensor = new WettersensorMock(15, 35, false);
             var wohnung = new Wohnung(wettersensor);
 
             wohnung.SetTemperaturvorgabe("Wintergarten", 20);
@@ -78,7 +78,7 @@ namespace SmartHome.Tests
         public void TestMitMinus15GradRegenNein_True()
         {
             // Arrange
-            var wettersensor = new WettersensorMock(-15, 35, true);
+            var wettersensor = new WettersensorMock(-15, 35, false);
             var wohnung = new Wohnung(wettersensor);
 
             wohnung.SetTemperaturvorgabe("Wintergarten", 20);
@@ -93,10 +93,10 @@ namespace SmartHome.Tests
         }
 
         [TestMethod]
-        public void TestMit20GradRegenNein_True()
+        public void TestMitGleicherTemp_True()
         {
             // Arrange
-            var wettersensor = new WettersensorMock(20, 35, true);
+            var wettersensor = new WettersensorMock(20, 35, false);
             var wohnung = new Wohnung(wettersensor);
 
             wohnung.SetTemperaturvorgabe("Wintergarten", 20);
@@ -109,6 +109,5 @@ namespace SmartHome.Tests
             // Assert
             Assert.IsTrue(wintergarten.MarkiseEingefahren);
         }
-
     }
 }
