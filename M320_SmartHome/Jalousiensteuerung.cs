@@ -1,7 +1,6 @@
 ﻿namespace M320_SmartHome {
     public class Jalousiensteuerung : ZimmerDecorator {
         
-        // Logik abgeändert (in der Klasse besprochen)
         public bool JalousieOffen { get; set; }
         public Jalousiensteuerung(IZimmer zimmer) : base(zimmer) { }
 

@@ -6,19 +6,18 @@ namespace SmartHome.Tests
     [TestClass]
     public class HeizungsventilTests
     {
-        // TODO
+        // TestKonzept
+
         // Arrange
-        // KLasse WettersensorMock erstellen (Neue klasse im TestProjekt
-        // , welche die fixe Aussentemparatur 19C§ als Wetterdaten "generiert"
-        // 2) Wohnung instanzieren und WezzersensorMock als Wettersensor im
-        // Konstruktur übergeben
-        // 3) temperaturvorgabe für Wohnzimmer: 19C° 
+        // 1) Klasse WettersensorMock erstellen
+        // 2) Wohnung instanzieren und WezzersensorMock als Wettersensor im Konstruktur übergeben
+        // 3) Temperaturvorgabe für Wohnzimmer: 19C° 
 
         // Act
-        // 4) Wohnung.GenerateWetterdaten() aufrufen 
+        // 4) Wohnung.GenerateWetterdaten() 
 
         // Assert
-        // 5) Wohnzimmer überprüfen, ob Heizungsventil offen 
+        // 5) Überprüfung der erwarteten Resultate
 
         [TestMethod]
         public void TestMit18Grad_True()

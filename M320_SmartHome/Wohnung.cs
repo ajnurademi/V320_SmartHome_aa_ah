@@ -6,10 +6,7 @@ namespace M320_SmartHome {
         private List<IZimmer> zimmerList = new List<IZimmer>();
         private IWettersensor wettersensor;
 
-
-        // FIXEN WERT IM KONSTRUKTUR EINGEBEN IN PUBLIC WOHNUNG()
         public Wohnung(IWettersensor wettersensor) {
-            // Wettersensor ggf. in einem ersten Schritt hier generieren. Dann kann das später beim Testing für den WettersensorMock nach IoC umgebaut werden.
             this.wettersensor = wettersensor;
 
             this.zimmerList.Add(new Heizungsventil(new BadWC()));
@@ -39,7 +36,7 @@ namespace M320_SmartHome {
                 zimmer.VerarbeiteWetterdaten(wetterdaten);
             }
         }
-
+       
         public IZimmer GetZimmer(string zimmername)
         {
             return this.zimmerList.FirstOrDefault(x => x.Name == zimmername);
@@ -60,7 +57,5 @@ namespace M320_SmartHome {
                 zimmer = (IZimmer)fi.GetValue(zimmer);
             }
         }
-
-
     }
 }

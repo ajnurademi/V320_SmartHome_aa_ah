@@ -58,7 +58,6 @@ namespace SmartHome.Tests
 
             wohnung.SetTemperaturvorgabe("Kueche", 20);
             wohnung.SetPersonenImZimmer("Kueche", true);
-           
 
             wohnung.GenerateWetterdaten();
 

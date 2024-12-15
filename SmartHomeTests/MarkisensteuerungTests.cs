@@ -16,7 +16,7 @@ namespace SmartHome.Tests
         ○ Die Markise wird ausgefahren, wenn die Aussentemperatur die vorgegebenen Zimmertemperatur überschreitet. 
         Dies jedoch nur, wenn die Windgeschwindigkeit nicht höher als 30km/h beträgt.
 
-        Im Projekt (vom zip-File heruntergeladen) wurde anstelle von der Windgeschwindigkeit den Regen genommen (siehe Logik Markisensteuerung.cs)
+        Im Projekt (vom zip-File "SmartHome Simulation" heruntergeladen) wurde anstelle von der Windgeschwindigkeit den Regen genommen (siehe Logik Markisensteuerung.cs)
         */
 
         [TestMethod]
